@@ -1,4 +1,5 @@
 import classes from "./MealItemForm.module.css";
+import Input from "../../UI/Input";
 
 const MealItemForm = (props) => {
   const addItemHandler = (event) => {
@@ -6,16 +7,23 @@ const MealItemForm = (props) => {
       name: props.foodName,
       qty: event.target.value,
     };
-    console.log(meal);
   };
 
   return (
     <>
       <form className={classes.form}>
-        <div className={classes.input}>
-          <label htmlFor="qty">Amount</label>
-          <input onChange={addItemHandler} type="number" name="qty" id="qty" />
-        </div>
+        <Input
+          label="Amount"
+          input={{
+            id: "amount_" + props.id,
+            type: "number",
+            min: "1",
+            max: "5",
+            step: "1",
+            defaultValue: "1",
+          }}
+          onChange={addItemHandler}
+        />
         <button>+ Add</button>
       </form>
     </>

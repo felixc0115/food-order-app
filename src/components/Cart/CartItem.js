@@ -1,14 +1,16 @@
+import classes from "./CartItem.module.css";
+
 const CartItem = ({ item }) => {
   return (
-    <li>
+    <li className={classes["cart-item"]}>
       <div>
-        <h3>{item.name}</h3>
+        <h2>{item.name}</h2>
         <p>{item.price}</p>
         <span>{item.qty}</span>
-      </div>
-      <div>
-        <button>-</button>
-        <button>+</button>
+        <div>
+          <button>-</button>
+          <button>+</button>
+        </div>
       </div>
     </li>
   );
