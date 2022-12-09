@@ -1,11 +1,23 @@
-import Cart from "../Cart/Cart";
 import classes from "./Modal.module.css";
+import { ReactDOM } from "react-dom";
 
-const Modal = () => {
+const Backdrop = (props) => {
+  return <div className={classes.backdrop}></div>;
+};
+const ModalOverlay = (props) => {
   return (
     <div className={classes.modal}>
-      <Cart />
+      <div className={classes.content}>{props.children}</div>
     </div>
+  );
+};
+
+const Modal = (props) => {
+  return (
+    <>
+      {ReactDOM.createPortal(<Backdrop />)}
+      {ReactDOM.createPortal(<ModalOverlay>{props.children}</ModalOverlay>)}
+    </>
   );
 };
 
