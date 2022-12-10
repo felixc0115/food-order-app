@@ -1,15 +1,17 @@
 import Header from "./components/Layout/Header";
 import "./App.css";
 import Meals from "./components/Meals/Meals";
-import Modal from "./components/UI/Modal";
+import Cart from "./components/Cart/Cart";
+import { useState } from "react";
 
 function App() {
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   return (
     <>
-      <Header />
+      {modalIsOpen && <Cart onClose={setModalIsOpen} />}
+      <Header onOpen={setModalIsOpen} />
       <main>
         <Meals />
-        <Modal />
       </main>
     </>
   );
