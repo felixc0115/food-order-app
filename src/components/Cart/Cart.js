@@ -15,19 +15,15 @@ const Cart = (props) => {
   //     .map((item) => item.price * item.qty)
   //     .reduce((total, current) => total + current);
 
-  const closeModalHandler = () => {
-    props.onClose((prev) => !prev);
-  };
-
   return (
-    <Modal>
+    <Modal onClose={props.onClose}>
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>35.62</span>
       </div>
       <div className={classes.actions}>
-        <button onClick={closeModalHandler} className={classes["button--alt"]}>
+        <button onClick={props.onClose} className={classes["button--alt"]}>
           Close
         </button>
         <button

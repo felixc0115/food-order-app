@@ -3,17 +3,27 @@ import "./App.css";
 import Meals from "./components/Meals/Meals";
 import Cart from "./components/Cart/Cart";
 import { useState } from "react";
+import CartProvider from "./store/CartProvider";
 
 function App() {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [cartIsShown, setCartIsShown] = useState(false);
+
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartIsShown(false);
+  };
+
   return (
-    <>
-      {modalIsOpen && <Cart onClose={setModalIsOpen} />}
-      <Header onOpen={setModalIsOpen} />
+    <CartProvider>
+      {cartIsShown && <Cart onClose={hideCartHandler} />}
+      <Header onOpen={showCartHandler} />
       <main>
         <Meals />
       </main>
-    </>
+    </CartProvider>
   );
 }
 
