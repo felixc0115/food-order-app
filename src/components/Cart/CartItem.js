@@ -5,12 +5,14 @@ const CartItem = ({ item }) => {
     <li className={classes["cart-item"]}>
       <div>
         <h2>{item.name}</h2>
-        <p>{item.price}</p>
-        <span>{item.qty}</span>
-        <div>
-          <button>-</button>
-          <button>+</button>
+        <div className={classes.summary}>
+          <span className={classes.price}>{item.price}</span>
+          <span className={classes.amount}>{item.amount}</span>
         </div>
+      </div>
+      <div className={classes.actions}>
+        <button>-</button>
+        <button>+</button>
       </div>
     </li>
   );
