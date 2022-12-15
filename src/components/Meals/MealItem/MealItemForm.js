@@ -24,7 +24,7 @@ const MealItemForm = (props) => {
           }}
           onChange={addItemHandler}
         />
-        <button>+ Add</button>
+        <button onClick={addItemHandler}>+ Add</button>
       </form>
     </>
   );
