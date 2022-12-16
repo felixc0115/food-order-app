@@ -15,10 +15,6 @@ const cartReducer = (state, action) => {
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
   if (action.type === "REMOVE") {
-    const filteredItems = state.items.filter(
-      (item) => item.id !== action.payload.id
-    );
-    const updatedItems = [...filteredItems];
   }
   return defaultCartState;
 };
