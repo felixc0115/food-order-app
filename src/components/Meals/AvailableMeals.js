@@ -6,12 +6,18 @@ import { useEffect, useState } from "react";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
         "https://react-http-bcf06-default-rtdb.firebaseio.com/meals.json"
       );
+
+      if (!response.ok) {
+        throw new Error("Fetch Error!");
+      } //Throws error if get request fails
+
       const responseData = await response.json();
       const loadedMeals = [];
 
@@ -22,17 +28,28 @@ const AvailableMeals = () => {
           description: responseData[key].description,
           price: responseData[key].price,
         });
-        setMeals(loadedMeals);
-        setIsLoading(false);
       }
+      setMeals(loadedMeals);
+      setIsLoading(false);
     };
-    fetchMeals();
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message); //An async function returns a promise so you can use the catch method to handle errors
+    });
   }, []);
 
   if (isLoading) {
     return (
       <section className={classes.mealsLoading}>
         <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={classes.mealsError}>
+        <p>{httpError}</p>
       </section>
     );
   }
