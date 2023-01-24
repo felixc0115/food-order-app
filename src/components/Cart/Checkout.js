@@ -100,7 +100,7 @@ const Checkout = (props) => {
       return;
     }
 
-    console.log(customerInfo);
+    props.onOrder(customerInfo);
     nameInputRef.current.value = "";
     streetInputRef.current.value = "";
     postalCodeInputRef.current.value = "";

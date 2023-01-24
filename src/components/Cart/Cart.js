@@ -4,6 +4,7 @@ import Modal from "../UI/Modal";
 import CartContext from "../../store/cart-context";
 import { useContext, useState } from "react";
 import Checkout from "./Checkout";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const Cart = (props) => {
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
@@ -18,6 +19,16 @@ const Cart = (props) => {
 
   const orderHandler = () => {
     setShowCheckoutForm(true);
+  };
+
+  const submitOrderHandler = (userData) => {
+    fetch("https://react-http-bcf06-default-rtdb.firebaseio.com/orders.json", {
+      method: "POST",
+      body: JSON.stringify({
+        user: userData,
+        orderedItems: cartCtx.items,
+      }),
+    });
   };
 
   const cartItems = (
@@ -40,7 +51,9 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{`$${cartCtx.totalAmount.toFixed(2)}`}</span>
       </div>
-      {showCheckoutForm && <Checkout onCancel={props.onClose} />}
+      {showCheckoutForm && (
+        <Checkout onOrder={submitOrderHandler} onCancel={props.onClose} />
+      )}
       <div className={classes.actions}>
         {!showCheckoutForm && (
           <button onClick={props.onClose} className={classes["button--alt"]}>
